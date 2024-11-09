@@ -9,24 +9,39 @@ import { MantineProvider, Text, Grid, Box, PasswordInput, TextInput } from '@man
 const Login = () => {
 const [userName, setUserName] = useState('');
 const [password, setPassword] = useState('');
+const [errors, setErrors] = useState({ userName: '', password: '' }); 
 
 const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setUserName(event.target.value);
+  const value = event.target.value;
+  setUserName(value);
+
+  setErrors((prevErrors) => ({
+    ...prevErrors,
+    userName: value.trim() === '' ? 'username is required!' : '',
+  }));
 }
 
 const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setPassword(event.target.value);
+  const value = event.target.value;
+  setPassword(value);
+
+  setErrors((prevErrors) => ({
+    ...prevErrors,
+    password: value.trim() === '' ? 'password is required!' : '',
+  }));
 }
 
   return (
     <MantineProvider>
       <Box
         style={{
-          width: '300px',
-          height: '451px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
           backgroundSize: 'cover',
           margin: '0 auto',
           marginBottom: '100px',
+          padding: '10px 10px 10px 10px',
           paddingTop: '0px',
           paddingLeft: '1px',
           paddingRight: '0px',
@@ -49,6 +64,7 @@ const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                   value={userName}
                   onChange={handleUsernameChange}
                   placeholder='enter your username'
+                  error={errors.userName}
                   styles={{
                     input: {
                       width: '257px',
@@ -73,6 +89,7 @@ const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
                   defaultValue="secret"
                   value={password}
                   onChange={handlePasswordChange}
+                  error={errors.password}
                   withAsterisk
                   styles={{
                     input: {

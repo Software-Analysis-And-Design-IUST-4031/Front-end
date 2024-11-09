@@ -13,29 +13,66 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({firstName: '', lastName: '', userName: '', email: '', password: '', confirmPassword: ''});
 
   const handleFirstnameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
+    const value = event.target.value;
+    setFirstName(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      firstName: value.trim() === '' ? 'first name is required!' : '',
+    }));
   }
 
   const handleLastnameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
+    const value = event.target.value;
+    setLastName(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      lastName: value.trim() === '' ? 'last name is required!' : '',
+    }));
   }
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+    const value = event.target.value;
+    setUserName(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      userName: value.trim() === '' ? 'username is required!' : '',
+    }));
   }
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+    const value = event.target.value;
+    setPassword(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      password: value.trim() === '' ? 'password is required!' : '',
+    }));
   }
 
   const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmPassword(event.target.value);
+    const value = event.target.value;
+    setConfirmPassword(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      confirmPassword: value.trim() === '' ? 'confirm password is required!' : '',
+    }));
   }
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+    const value = event.target.value;
+    setEmail(value);
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      email: value.trim() === '' ? 'email address is required!' : '',
+    }));
   }
 
   const [isPasswordVisible] = useState(false);
@@ -44,15 +81,18 @@ const SignUp = () => {
     <MantineProvider>
       <Box 
         style={{
-          width: '515px',
-          height: '500px',
+          display: 'flex',
+          flexDirection: 'column',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyItems: 'center',
           backgroundSize: 'cover',
           margin: '0 auto',
           marginBottom: '100px',
-          padding: '20px',
+          padding: '20px 20px 20px 20px',
           paddingTop: '1px',
-          paddingLeft: '7px',
-          paddingRight: '9px',
+          paddingLeft: '20px',
+          paddingRight: '20px',
           border: '2px solid rgba(0, 0, 0, 0.158)',
           borderRadius: '12px',
           backdropFilter: 'blur(5px) brightness(1)',
@@ -71,6 +111,7 @@ const SignUp = () => {
                 name="first_name"
                 value={firstName}
                 onChange={handleFirstnameChange}
+                error={errors.firstName}
                 placeholder="enter your first name"
                 labelProps={{ className:'label-aligned'}}
                 styles={{
@@ -98,6 +139,7 @@ const SignUp = () => {
                   name="last_name"
                   value={lastName}
                   onChange={handleLastnameChange}
+                  error={errors.lastName}
                   placeholder='enter your last name'
                   labelProps={{ className:'label-aligned'}}
                   styles={{
@@ -126,6 +168,7 @@ const SignUp = () => {
                   name="user_name"
                   value={userName}
                   onChange={handleUsernameChange}
+                  error={errors.userName}
                   placeholder='enter your username'
                   styles={{
                     input: {
@@ -148,7 +191,8 @@ const SignUp = () => {
               type='email'
               name="email"
               value={email}
-              onChange={handleEmailChange} 
+              onChange={handleEmailChange}
+              error={errors.email} 
               placeholder='enter your email address'
               styles={{
                 input: {
@@ -174,6 +218,7 @@ const SignUp = () => {
                   defaultValue="secret"
                   value={password}
                   onChange={handlePasswordChange}
+                  error={errors.password}
                   withAsterisk
                   styles={{
                     input: {
@@ -204,7 +249,8 @@ const SignUp = () => {
                   type={isPasswordVisible ? 'text' : 'password'}
                   name="password"
                   value={confirmPassword}
-                  onChange={handleConfirmPasswordChange} 
+                  onChange={handleConfirmPasswordChange}
+                  error={errors.confirmPassword} 
                   placeholder='repeat your password'
                   withAsterisk
                   styles={{

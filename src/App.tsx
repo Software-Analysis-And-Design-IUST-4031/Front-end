@@ -4,11 +4,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignUp from './SignUp'
 import Login from './Login'
-//import { MantineProvider } from '@mantine/core';
 
 function App() {
-  //const [count, setCount] = useState(0)
-
   return (
     <Router>
       <Routes>
